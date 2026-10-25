@@ -3,7 +3,9 @@ const { GoogleGenAI } = require("@google/genai");
 const ai = new GoogleGenAI({ apiKey: process.env.GEMINI_API_KEY });
 
 async function generateResponse(content) {
-
+  if (typeof content !== "string" || !content.trim()) {
+    throw new Error("Message content is required");
+  }
   try {
     const response = await ai.models.generateContent({
       model: "gemini-3.5-flash",
