@@ -4,6 +4,7 @@ const jwt = require("jsonwebtoken");
 const usermodel = require("../models/usermodel");
 const messagemodel = require("../models/messagemodel");
 const { generateResponse } = require("../service/ai.service");
+const {createmomery,querymomery}= require("../service/vector.service")
 
 const connectedserver = (httpserver) => {
   const io = new Server(httpserver, {});
@@ -42,7 +43,8 @@ const connectedserver = (httpserver) => {
 
           chat: messageplayload.chat,
       }
-      );
+      ).sort({createdAt:-1}).limit(10);
+      chatHistory.reverse();
 
       console.log(chatHistory);
       socket.emit("ai-respose", {
