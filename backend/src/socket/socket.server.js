@@ -32,6 +32,7 @@ const connectedserver = (httpserver) => {
       });
       const response = await generateResponse(messageplayload.content);
       console.log(response);
+      await
       await messagemodel.create({
         chat: messageplayload.chat,
         user: socket.user._id,
